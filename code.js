@@ -24,6 +24,7 @@ window.onload = function(){
 	var lives=3;
 	var speed=10;
 	
+	HighScore = getCookie(highest);
 	var bricks =[];
 	for(var c=0;c<brickColumnCount;c++){
 		bricks[c] = [];
@@ -179,6 +180,7 @@ window.onload = function(){
 		x += dx;
 		y += dy;
 		document.getElementById("display").innerHTML = getCookie(highest);
+		
 	}
 	document.addEventListener("keydown",keyDownHandler,false);
 	document.addEventListener("keyup",keyUpHandler,false);
