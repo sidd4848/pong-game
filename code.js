@@ -11,6 +11,7 @@ window.onload = function(){
 	var paddleX = (canvas.width-paddleWidth)/2;
 	var rightPressed = false;
 	var leftPressed = false;
+	var motion =0;
 	var brickRowCount=6;
 	var brickColumnCount = 13;
 	var brickWidth = 40;
@@ -173,6 +174,10 @@ window.onload = function(){
 		drawScore();
 		drawLives();
 		check();
+		if(motion > 0 && paddleX < canvas.width-paddleWidth)
+			paddleX +=6;
+		else if (motion<0 && paddleX > 0)
+			paddleX +=6;
 		if(rightPressed && paddleX < canvas.width-paddleWidth)
             paddleX += 7;
         else if(leftPressed && paddleX > 0)
@@ -185,7 +190,8 @@ window.onload = function(){
 	document.addEventListener("keydown",keyDownHandler,false);
 	document.addEventListener("keyup",keyUpHandler,false);
 	document.addEventListener("mousemove", mouseMoveHandler, false);
-	document.addEventListener("touchmove",mouseMoveHandler,false)
+	document.addEventListener("touchmove",mouseMoveHandler,false);
+	document.addEventListener("deviceorientation", handleOrientation);
 	function mouseMoveHandler(e){
 		var relativeX = e.clientX - canvas.offsetLeft;
 		 if(relativeX > 0 && relativeX < canvas.width) {
@@ -205,6 +211,9 @@ window.onload = function(){
     else if(e.keyCode == 37) 
         leftPressed = false;
     }
+	function handleOrientation(e){
+		 motion = event.gamma;
+	}
 	setInterval(draw,speed);//every 10 millisecond draw will execute
     
 }
